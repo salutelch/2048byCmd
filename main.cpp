@@ -5,81 +5,90 @@ extern int arr[4][4];
 extern int over[4][4];
 extern int DontMove[4][4];
 extern int temp[4];
+using namespace std;
 
 int main(int argc, char *argv[])
 {
-START:
-	system("cls");
-	score = 0;
-	srand((unsigned int)time(NULL));
-	//³õÊ¼»¯
-	InIt();
-	//´òÓ¡
-	Print();
-	//¼ÇÂ¼ÓÎÏ·¿ªÊ¼Ê±¼ä
-	int ftime = clock();
-	//»ñÈ¡ÊäÈë
-	while (1)
-	{
-		setOver();
-		cout << endl;
-		cout << "------score: " << score << "------" << endl;
-		char ch = _getch();
-		if (ch == -32)
+	int ftime;
+	do{
+		do
 		{
-			switch (ch = _getch())
+			system("cls");
+			score = 0;
+			srand((unsigned int)time(NULL));
+			//åˆå§‹åŒ–
+			InIt();
+			//æ‰“å°
+			Print();
+			//è®°å½•æ¸¸æˆå¼€å§‹æ—¶é—´
+			ftime = clock();
+			//è·å–è¾“å…¥
+			while (1)
 			{
-			case 72:
-				Up();
-				system("cls");
-				Print();
-				break;
-			case 80:
-				down();
-				system("cls");
-				Print();
-				break;
-			case 75:
-				left();
-				system("cls");
-				Print();
-				break;
-			case 77:
-				right();
-				system("cls");
-				Print();
-				break;
-			default:
-				break;
+				setOver();
+				cout << endl;
+				cout << "------score: " << score << "------" << endl;
+				char ch = _getch();
+				if (ch == -32)
+				{
+					switch (ch = _getch())
+					{
+					case 72:
+						Up();
+						system("cls");
+						Print();
+						break;
+					case 80:
+						down();
+						system("cls");
+						Print();
+						break;
+					case 75:
+						left();
+						system("cls");
+						Print();
+						break;
+					case 77:
+						right();
+						system("cls");
+						Print();
+						break;
+					default:
+						break;
+					}
+				}
+				if (GameOver())
+				{
+					goto OVER;
+				}
 			}
-		}
-		if (GameOver())
-		{
-			goto Over;
-		}
-	}
+		} while (1);
+OVER:
+		//è®°å½•æ¸¸æˆç»“æŸæ—¶é—´
+		int ltime = clock();
+		double gtime = ltime - ftime;
+		gtime /= 1000;
 
-Over:
-	//¼ÇÂ¼ÓÎÏ·½áÊøÊ±¼ä
-	int ltime = clock();
-	double gtime = ltime - ftime;
-	gtime /= 1000;
-
-	//ÇåÆÁ²¢´òÓ¡½áÊøĞÅÏ¢
+		//æ¸…å±å¹¶æ‰“å°ç»“æŸä¿¡æ¯
 		system("cls");
-		cout << "Äã¸öÉµ±ÆËÀÁË°É¹ş¹ş¹ş¹ş" << endl;
-		cout << "ÕâÀïÊÇÄãµÄ·ÖÊı: " << score << endl;
-		cout << "ÓÎÏ·Ê±¼ä: " << gtime << "s" << endl;
-		cout << "°´qÍË³ö!" << endl;
-		cout << "°´aÖØÀ´!" << endl;
+		cout << "æ­»äº†å•Šå–‚ãƒ½(â—-`Ğ”Â´-)ãƒ" << endl;
+		cout << "è¿™é‡Œæ˜¯ä½ çš„åˆ†æ•°: " << score << endl;
+		cout << "æ¸¸æˆæ—¶é—´: " << gtime << "s" << endl;
+		cout << "æŒ‰qé€€å‡º!" << endl;
+		cout << "æŒ‰aé‡æ¥!" << endl;
 		while (1)
 		{
 			char ch = _getch();
 			if (ch == 'q')
 				return 0;
 			if (ch == 'a')
-				goto START;
+				goto AGAIN;
 		}
+
+AGAIN:
+		continue;
+
+	} while (1);
 
 	system("pause");
 	return 0;
